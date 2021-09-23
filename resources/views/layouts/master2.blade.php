@@ -130,6 +130,22 @@
         });
     });
 </script>
+@if (session()->has('success'))
+<script>
+    $.notify({
+        icon: "add_alert",
+        message: "{{ session()->get('success') }}"
+        
+        }, {
+        type: 'success',
+        timer: 3000,
+        placement: {
+        from: 'top',
+        align: 'right'
+        }
+        });
+</script>
+@endif
 </body>
 
 </html>

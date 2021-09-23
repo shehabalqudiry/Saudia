@@ -19,7 +19,7 @@
             </li>
             <li class="nav-item ">
                 <a class="nav-link" href="{{ route('home') }}">
-                    <i class="material-icons">dashboard</i>
+                    <i class="material-icons">user</i>
                     <p>المتقدمين</p>
                 </a>
             </li>
@@ -30,13 +30,13 @@
                 </a>
             </li>
             <li class="nav-item ">
-                <a class="nav-link" href="{{ route('home') }}">
-                    <i class="material-icons">dashboard</i>
+                <a class="nav-link" href="{{ route('cities.index') }}">
+                    <i class="material-icons">world</i>
                     <p>المحافظات</p>
                 </a>
             </li>
             <li class="nav-item ">
-                <a class="nav-link" href="{{ route('home') }}">
+                <a class="nav-link" href="{{ route('nationalities.index') }}">
                     <i class="material-icons">dashboard</i>
                     <p>الجنسيات</p>
                 </a>

@@ -14,11 +14,6 @@ class NationalityController extends Controller
         return view('admin.nationality.index')->with($data);
     }
 
-    public function create()
-    {
-        return view('admin.nationality.create');
-    }
-
     public function store(Request $request)
     {
         $request->validate([
@@ -29,11 +24,6 @@ class NationalityController extends Controller
         Nationality::create($request->all());
 
         return redirect()->back()->with('success', 'تم اضافة البيانات بنجاح');
-    }
-
-    public function edit(Nationality $nationality)
-    {
-        return view('admin.nationality.edit')->with($nationality);
     }
 
     public function update(Request $request, Nationality $nationality)
@@ -52,5 +42,6 @@ class NationalityController extends Controller
     public function destroy(Nationality $nationality)
     {
         $nationality->delete();
+        return redirect()->back()->with('success', 'تم الحذف بنجاح');
     }
 }

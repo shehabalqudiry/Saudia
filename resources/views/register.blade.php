@@ -2,6 +2,22 @@
 @section('content')
 <div class="container">
     <div class="col-md-12">
+        @if (session()->has('success'))
+        <script>
+            $.notify({
+                icon: "add_alert",
+                message: "{{ session()->get('success') }}"
+                
+                }, {
+                type: 'success',
+                timer: 3000,
+                placement: {
+                from: 'top',
+                align: 'right'
+                }
+                });
+        </script>
+        @endif
         <div class="card">
             <div class="card-header text-center py-5">
                 <div class="row">
@@ -41,7 +57,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label class="bmd-label-floating">اسم الجد</label>
-                                <input type="text" class="form-control" name="third_name" />
+                                <input type="text" required class="form-control" name="third_name" />
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -61,7 +77,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="bmd-label-floating">مكان الميلاد</label>
-                                <input type="text" required class="form-control" name="birth_address" />
+                                <input type="text" class="form-control" name="birth_address" />
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -103,7 +119,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="bmd-label-floating">الرقم القومي</label>
-                                <input type="text" required class="form-control"
+                                <input type="text" maxlength="14" required class="form-control"
                                     name="national_number" />
                             </div>
                         </div>
@@ -119,13 +135,13 @@
                         <div class="col-4">
                             <div class="form-group">
                                 <label class="bmd-label-floating">عنوان العمل</label>
-                                <input type="text" required class="form-control" name="work_address" />
+                                <input type="text" class="form-control" name="work_address" />
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="form-group">
                                 <label class="bmd-label-floating">البريد الاكتروني</label>
-                                <input type="text" required class="form-control" name="email" />
+                                <input type="email" class="form-control" name="email" />
                             </div>
                         </div>
                     </div>
@@ -145,8 +161,7 @@
                         </div>
                         <div class="col-4">
                             <div class="form-group">
-                                <select class="form-control">
-
+                                <select class="form-control" name="spec_title">
                                     <option value="استشاري">طبيب استشاري</option>
                                     <option value="اخصائي">اخصائي</option>
                                     <option value="مقيم">طبيب مقيم</option>
@@ -156,7 +171,7 @@
                         <div class="col-4">
                             <div class="form-group">
                                 <select class="form-control" name="job_id">
-                                    <option >الوظيفة المتقدم عليها</option>
+                                    <option disabled selected value="">الوظيفة المتقدم عليها</option>
                                     @foreach ($jobs as $job)
                                     <option value="{{ $job->id }}">{{ $job->job_title }}</option>
                                     @endforeach
@@ -164,7 +179,6 @@
                             </div>
                         </div>
                     </div>
-
                     {{-- المؤهلات العلمية --}}
                     <div class="row">
                         <div class="col-md-12">
@@ -292,7 +306,7 @@
                                                 </th>
                                             </thead>
                                             <tbody id="saudiaBody">
-                                                
+
                                             </tbody>
                                         </table>
                                     </div>

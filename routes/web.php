@@ -16,6 +16,7 @@ Route::post('jobAplication', [CardJobController::class, 'store'])->name('jobApli
 
 Route::get( '/get-cities/{nationality_id}', [CardJobController::class, 'get_cities']);
 Route::get('/loginUser/{national_number}', [CardJobController::class, 'login']);
+Route::post('/loginUser/{national_number}', [CardJobController::class, 'show'])->name('user-login');
 
 Auth::routes();
 Route::prefix('admin')->middleware('auth')->group(function () {

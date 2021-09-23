@@ -29,6 +29,7 @@ class CreateUsersTable extends Migration
             $table->string('work_address')->nullable();
             $table->string('religion')->nullable();
             $table->string('children')->nullable();
+            $table->string('spec_title')->nullable();
 
             // $table->string('passport_number');
             $table->unsignedBigInteger('nationality_id')->nullable();

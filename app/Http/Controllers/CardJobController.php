@@ -12,6 +12,7 @@ use App\Models\Nationality;
 use App\Models\Qualifications;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CardJobController extends Controller
 {
@@ -25,76 +26,95 @@ class CardJobController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
-        // try {
+        DB::beginTransaction();
+        try {
 
-        $request->validate([
-            'phone'             => 'required|max:11',
-            'national_number'   => 'required|min:13',
-        ]);
-        $data = $request->except(['qualification_data', 'e_data', 'saudia_data', 'status', 'rate', 'start', 'end', 'military_status']);
-        // dd($data);
-        $user = User::create($data);
-
-        if ($request->qualification_data) {
-            foreach ($request->qualification_data as $q) {
-                Qualifications::create([
-                    'qualification_name' => $q->qualification_name,
-                    'spec'               => $q->spec,
-                    'address'            => $q->address,
-                    'schoole'            => $q->schoole,
-                    'years_count'        => $q->years_count,
-                    'gradution_year'     => $q->gradution_year,
-                    'degree'             => $q->degree,
-                    'user_id'            => $user->id,
-                ]);
-            }
-        }
-        if ($request->e_data) {
-            foreach ($request->e_data as $e) {
-                Experience::create([
-                    'company_name'  => $e->company_name,
-                    'job_title'  => $e->job_title,
-                    'contract_termination'  => $e->contract_termination,
-                    'job_start'  => $e->job_start,
-                    'job_end'  => $e->job_end,
-                    'user_id'   => $user->id,
-                ]);
-            }
-        }
-        if ($request->saudia_data) {
-            foreach ($request->saudia_data as $saudia) {
-                ExperienceInSaudia::create([
-                    'company_name'  => $saudia->company_name,
-                    'work_address'  => $saudia->work_address,
-                    'job_title'  => $saudia->job_title,
-                    'contract_termination'  => $saudia->contract_termination,
-                    'job_start'  => $saudia->job_start,
-                    'job_end'   => $user->job_end,
-                    'user_id'   => $user->id,
-                ]);
-            };
-        }
-        if ($request->start) {
-            MilitaryServices::create([
-                'start' => $request->start,
-                'end' => $request->end,
-                'rate' => $request->rate,
-                'military_status' => $request->military_status,
-                'user_id'  => $user->id,
+            $request->validate([
+                'phone'             => 'required|max:11',
+                'national_number'   => 'required|min:13|unique:users,national_number',
             ]);
+            $data = [
+                "first_name" => $request->first_name,
+                "father_name" => $request->father_name,
+                "third_name" => $request->third_name,
+                "forth_name" => $request->forth_name,
+                "birth_day" => $request->birth_day,
+                "birth_address" => $request->birth_address,
+                "gendar" => $request->gendar,
+                "children" => $request->children,
+                "religion" => $request->religion,
+                "nationality_id" => $request->nationality_id,
+                "national_number" => $request->national_number,
+                "phone" => $request->phone,
+                "work_address" => $request->work_address,
+                "email" => $request->email,
+                "home_address" => $request->home_address,
+                "spec_title" => $request->spec_title,
+            ];
+            // dd($data);
+            $user = User::create($data);
+
+            if ($request->qualification_data != null) {
+                foreach ($request->qualification_data as $q) {
+                    Qualifications::create([
+                        'qualification_name' => $q->qualification_name,
+                        'spec'               => $q->spec,
+                        'address'            => $q->address,
+                        'schoole'            => $q->schoole,
+                        'years_count'        => $q->years_count,
+                        'gradution_year'     => $q->gradution_year,
+                        'degree'             => $q->degree,
+                        'user_id'            => $user->id,
+                    ]);
+                }
+            }
+            if ($request->e_data != null) {
+                foreach ($request->e_data as $e) {
+                    Experience::create([
+                        'company_name'  => $e->company_name,
+                        'job_title'  => $e->job_title,
+                        'contract_termination'  => $e->contract_termination,
+                        'job_start'  => $e->job_start,
+                        'job_end'  => $e->job_end,
+                        'user_id'   => $user->id,
+                    ]);
+                }
+            }
+            if ($request->saudia_data != null) {
+                foreach ($request->saudia_data as $saudia) {
+                    ExperienceInSaudia::create([
+                        'company_name'  => $saudia->company_name,
+                        'work_address'  => $saudia->work_address,
+                        'job_title'  => $saudia->job_title,
+                        'contract_termination'  => $saudia->contract_termination,
+                        'job_start'  => $saudia->job_start,
+                        'job_end'   => $user->job_end,
+                        'user_id'   => $user->id,
+                    ]);
+                };
+            }
+            if ($request->start != null) {
+                MilitaryServices::create([
+                    'start' => $request->start,
+                    'end' => $request->end,
+                    'rate' => $request->rate,
+                    'military_status' => $request->military_status,
+                    'user_id'  => $user->id,
+                ]);
+            }
+            DB::commit();
+            return redirect()->back()->with('success', 'تم تقديم الطلب وجاري المراجعة');
+        } catch (\Exception $excep) {
+            DB::rollBack();
+            return redirect()->back()->withErrors(['error', $excep->getMessage()]);
         }
-        return redirect()->back();
-        // } catch (\Exception $ex) {
-        //     // return $ex->getMessage();
-        // }
     }
 
     public function login(Request $request)
     {
         if ($request->national_number) {
-            User::where('national_number', $request->national_number)->first();
-            return view('show');
+            $user = User::where('national_number', $request->national_number)->first();
+            return view('show', compact(['user']));
         }
         return view('register');
     }

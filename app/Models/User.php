@@ -12,7 +12,7 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    public $guarded = [];
+    protected $guarded = [];
 
     protected $hidden = [
         'password',
@@ -27,4 +27,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function saudiaExp()
+    {
+        return $this->hasMany(ExperienceInSaudia::class);
+    }
+
+    public function gExp()
+    {
+        return $this->hasMany(Experience::class);
+    }
+
+    public function qualifications()
+    {
+        return $this->hasMany(Qualifications::class);
+    }
 }
