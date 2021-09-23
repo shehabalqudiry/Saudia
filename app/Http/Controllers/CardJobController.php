@@ -38,17 +38,41 @@ class CardJobController extends Controller
 
         if ($request->qualification_data) {
             foreach ($request->qualification_data as $q) {
-                Qualifications::create([$q]);
+                Qualifications::create([
+                    'qualification_name' => $q->qualification_name,
+                    'spec'               => $q->spec,
+                    'address'            => $q->address,
+                    'schoole'            => $q->schoole,
+                    'years_count'        => $q->years_count,
+                    'gradution_year'     => $q->gradution_year,
+                    'degree'             => $q->degree,
+                    'user_id'            => $user->id,
+                ]);
             }
         }
         if ($request->e_data) {
             foreach ($request->e_data as $e) {
-                Experience::create([$e]);
+                Experience::create([
+                    'company_name'  => $e->company_name,
+                    'job_title'  => $e->job_title,
+                    'contract_termination'  => $e->contract_termination,
+                    'job_start'  => $e->job_start,
+                    'job_end'  => $e->job_end,
+                    'user_id'   => $user->id,
+                ]);
             }
         }
         if ($request->saudia_data) {
             foreach ($request->saudia_data as $saudia) {
-                ExperienceInSaudia::create([$saudia]);
+                ExperienceInSaudia::create([
+                    'company_name'  => $saudia->company_name,
+                    'work_address'  => $saudia->work_address,
+                    'job_title'  => $saudia->job_title,
+                    'contract_termination'  => $saudia->contract_termination,
+                    'job_start'  => $saudia->job_start,
+                    'job_end'   => $user->job_end,
+                    'user_id'   => $user->id,
+                ]);
             };
         }
         if ($request->start) {
