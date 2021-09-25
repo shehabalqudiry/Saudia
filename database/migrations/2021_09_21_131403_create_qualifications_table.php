@@ -17,11 +17,8 @@ class CreateQualificationsTable extends Migration
             $table->id();
             $table->string('qualification_name');
             $table->string('spec');
-            $table->string('address');
-            $table->string('schoole');
-            $table->string('years_count');
             $table->string('gradution_year');
-            $table->string('degree');
+            $table->string('file_name');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');

@@ -22,6 +22,7 @@ class CreateExperienceInSaudiasTable extends Migration
             $table->string('contract_termination')->nullable();
             $table->string('job_start')->nullable();
             $table->string('job_end')->nullable();
+            $table->string('file_name');
 
             $table->unsignedBigInteger('user_id');
             $table->timestamps();

@@ -13,9 +13,23 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_URI} (.+)/$
     RewriteRule ^ %1 [L,R=301]
-
+    
+    # RewriteEngine On
+    # RewriteCond %{SERVER_PORT} 80
+    # RewriteRule ^(.*)$ https://www.sla-request.com/$1 [R,L]
+    
     # Send Requests To Front Controller...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 </IfModule>
+# Disable Directory Listing
+Options -Indexes
+<Files ~ "\.(env|json|config.js|md|gitignore|gitattributes|lock)$">
+    Order allow,deny
+    Deny from all
+</Files>
+<Files ~ "(artisan)$">
+    Order allow,deny
+    Deny from all
+</Files>

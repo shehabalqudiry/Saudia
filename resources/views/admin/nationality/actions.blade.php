@@ -12,6 +12,7 @@
             <form action="{{ route('nationalities.update', $na->id) }}" method="post">
                 <div class="modal-body">
                     @csrf
+                    @method('put')
                     <input class="form-control col" type="text" name="name" placeholder="الجنسية">
 
                     <input class="form-control col" type="text" name="key" placeholder="مفتاح الدولة">

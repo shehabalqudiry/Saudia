@@ -12,6 +12,7 @@ class CityController extends Controller
     public function index()
     {
         $data['cities'] = City::all();
+        $data['nationalities'] = Nationality::all();
         return view('admin.cities.index')->with($data);
     }
 
@@ -36,18 +37,19 @@ class CityController extends Controller
 
     public function edit(City $city)
     {
-        return view('admin.cities.edit')->with($city);
+        $data['nationalities'] = Nationality::all();
+        return view('admin.cities.edit', compact(['city', 'nationalities']));
     }
 
 
     public function update(Request $request, City $city)
     {
-        $request->validate([
+        $data = $request->validate([
             'name' => 'required',
             'nationality_id' => 'required',
         ]);
 
-        $city->update($request->all());
+        $city->update($data);
         return redirect()->back()->with('success', 'تم تعديل البيانات بنجاح');
     }
 

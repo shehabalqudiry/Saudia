@@ -2,85 +2,89 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Admin;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\Admin;
+use Spatie\Permission\Models\Role;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+
+    public function index(Request $request)
     {
-        $admins = Admin::all();
-        return view('admin.admins.index', compact(['admins']));
+        $data = Admin::latest()->get();
+        return view('admin.admins.index', compact('data'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        $roles = Role::pluck('name', 'name')->all();
+        return view('admin.admins.create', compact('roles'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email|unique:Admins,email',
+            'password' => 'required|same:confirm-password',
+            'roles' => 'required',
+        ]);
+
+        $input = $request->all();
+        $input['password'] = Hash::make($input['password']);
+
+        $admin = Admin::create($input);
+        $admin->assignRole($request->roles);
+
+        return redirect()->route('admins.index')
+            ->with('success', 'تم اضافة المشرف بنجاح');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Admin  $admin
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Admin $admin)
+    public function edit($id)
     {
-        //
+        $admin = Admin::find($id);
+        $roles = Role::pluck('name', 'name')->all();
+        $adminRole = $admin->roles->pluck('name', 'name')->all();
+
+        return view('admin.admins.edit', compact('admin', 'roles', 'adminRole'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Admin  $admin
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Admin $admin)
+    public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email|unique:Admins,email,' . $id,
+            'password' => 'same:confirm-password',
+            'roles' => 'required',
+        ]);
+
+        $input = $request->all();
+        if (!empty($input['password'])) {
+            $input['password'] = Hash::make($input['password']);
+        } else {
+            $input = Arr::except($input, array('password'));
+        }
+
+        $admin = Admin::find($id);
+        $admin->update($input);
+        DB::table('model_has_roles')->where('model_id', $id)->delete();
+
+        $admin->assignRole($request->roles);
+
+        return redirect()->route('admins.index')
+            ->with('success', 'تم تعديل البيانات بنجاح');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Admin  $admin
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Admin $admin)
+    public function destroy($id)
     {
-        //
+        Admin::find($id)->delete();
+        return redirect()->route('admins.index')
+            ->with('success', 'تم حذف المشرف');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Admin  $admin
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Admin $admin)
-    {
-        //
-    }
 }

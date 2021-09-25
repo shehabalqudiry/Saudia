@@ -7,7 +7,7 @@
             $.notify({
                 icon: "add_alert",
                 message: "{{ session()->get('success') }}"
-                
+
                 }, {
                 type: 'success',
                 timer: 3000,
@@ -19,17 +19,27 @@
         </script>
         @endif
         <div class="card">
-            <div class="card-header text-center py-5">
-                <div class="row">
-                    <div class="d-none-sm col-4 row-sm">
-                        <h4 class="card-title">سفارة المملكة العربية السعودية بالقاهرة</h4>
-                        <p class="card-category">الملحقية العمالية السعودية</p>
-                    </div>
-                    <div class="col-4">
-                        <h4 class="card-title">طلب توظيف</h4>
-                    </div>
-                    <div class="col-4 row-sm">
+            <div class="card-header text-right">
+                <div class="row align-items-center">
+
+                    <div class="col-sm-12 col-md-4 row-sm hide_desktop">
                         <img src="{{ asset('assets/img/Logo.png') }}" class="img-fluid" alt="">
+                    </div>
+
+                    <div class="d-none-sm col-sm-12 col-md-5  main_title">
+                        <h3 class="card-title ">المملكة العربية السعودية</h3>
+                        <h3 class="card-title">السفارة السعودية في القاهرة</h3>
+                        <h3 class="card-title">الملحقية العمالية</h3>
+                    </div>
+                    <div class="col-sm-12 col-md-3 hide_mobile">
+                        <h2 class="card-title">طلب توظيف</h2>
+                    </div>
+                    <div class="col-sm-12 col-md-4 row-sm hide_mobile">
+                        <img src="{{ asset('assets/img/Logo.png') }}" class="img-fluid" alt="">
+                    </div>
+
+                    <div class="col-sm-12 col-md-3 hide_desktop ">
+                        <h2 class="card-title">طلب توظيف</h2>
                     </div>
                 </div>
             </div>
@@ -38,87 +48,91 @@
                 <form action="{{ route('jobAplication') }}" method="POST">
                     @csrf
                     <div class="col-12">
-                        <h4 class="card-title text-center my-4" style="background: rgb(45, 180, 115); color: white">
+                        <h4 class="card-title text-center my-4 txt-title"
+                            style="background: rgb(45, 180, 115); color: white">
                             البيانات الشخصية</h4>
                     </div>
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label class="bmd-label-floating">الاسم الاول</label>
+                                <label class="bmd-label ">الاسم الاول
+                                    <span class="badge badge-light" style="color:rgb(45, 180, 115);">الاسم الاول</span>
+                                </label>
                                 <input type="text" required class="form-control" name="first_name" />
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label class="bmd-label-floating">اسم الاب</label>
+                                <label class="bmd-label">اسم الاب
+                                    <span class="badge badge-light" style="color:rgb(45, 180, 115);"> اسم الاب</span>
+                                </label>
                                 <input type="text" required class="form-control" name="father_name" />
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label class="bmd-label-floating">اسم الجد</label>
+                                <label class="bmd-label ">اسم الجد
+                                    <span class="badge badge-light" style="color:rgb(45, 180, 115);">الاسم الثالث فى
+                                        البطاقة </span>
+                                </label>
                                 <input type="text" required class="form-control" name="third_name" />
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label class="bmd-label-floating">الاسم الاخير</label>
+                                <label class="bmd-label ">الاسم الاخير
+                                    <span class="badge badge-light" style="color:rgb(45, 180, 115);"> الاسم الاخير في
+                                        البطاقة </span>
+                                </label>
                                 <input type="text" required class="form-control" name="forth_name" />
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="bmd-label-floating">تاريخ الميلاد</label>
-                                <input type="date" class="form-control" name="birth_day" />
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="bmd-label-floating">مكان الميلاد</label>
-                                <input type="text" class="form-control" name="birth_address" />
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <select class="form-control" name="gendar">
-                                    <option value="ذكر">ذكر</option>
-                                    <option value="أنثى">أنثى</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
                         <div class="col-md-2">
                             <div class="form-group">
-                                <label class="bmd-label-floating">عدد الابناء</label>
+                                <label class="bmd-label ">عدد الابناء
+                                    <span class="badge badge-light" style="color:rgb(45, 180, 115);">كم لديك من
+                                        ابناء</span>
+                                </label>
                                 <input type="text" class="form-control" name="children" />
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
+                                <label class="bmd-label ">الديانة
+                                    <span class="badge badge-light" style="color:rgb(45, 180, 115);">تحديد
+                                        الديانة</span>
+                                </label>
+
                                 <select class="form-control" name="religion">
-                                    <option>الديانة</option>
                                     <option value="مسلم">مسلم</option>
                                     <option value="مسيحي">مسيحي</option>
                                     <option value="غير ذلك">غير ذلك</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <div class="form-group">
+                                <label class="bmd-label ">الجنسية
+                                    <span class="badge badge-light" style="color:rgb(45, 180, 115);">من فضاك حدد
+                                        الجنسية</span>
+                                </label>
+
                                 <select class="form-control" name="nationality_id">
-                                    <option value="">الجنسية</option>
+                                    <option value="">حدد الجنسية</option>
                                     @foreach($nationality as $n)
                                     <option value="{{ $n->id }}">{{ $n->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-5">
                             <div class="form-group">
-                                <label class="bmd-label-floating">الرقم القومي</label>
+                                <label class="bmd-label ">الرقم القومي
+                                    <span class="badge badge-light" style="color:rgb(45, 180, 115);">ادخل الرقم القومي
+                                        او الرقم الوطني</span>
+                                </label>
                                 <input type="text" maxlength="14" required class="form-control"
                                     name="national_number" />
                             </div>
@@ -126,40 +140,44 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-4">
+                        <div class="col-md-4">
                             <div class="form-group">
-                                <label class="bmd-label-floating">رقم الهاتف</label>
+                                <label class="bmd-label ">رقم الهاتف
+                                    <span class="badge badge-light" style="color:rgb(45, 180, 115);">ادخل رقم الهاتف
+                                        الخاص بك </span>
+                                </label>
                                 <input type="text" required id="phone" class="form-control" name="phone" />
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-md-4">
                             <div class="form-group">
-                                <label class="bmd-label-floating">عنوان العمل</label>
-                                <input type="text" class="form-control" name="work_address" />
+                                <label class="bmd-label ">البريد الاكتروني
+                                    <span class="badge badge-light" style="color:rgb(45, 180, 115);">ادخل البريد
+                                        الالكتروني للتواصل</span>
+                                </label>
+                                <input type="email" class="form-control" name="email" />
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-md-4">
                             <div class="form-group">
-                                <label class="bmd-label-floating">البريد الاكتروني</label>
-                                <input type="email" class="form-control" name="email" />
+                                <label class="bmd-label ">العنوان
+                                    <span class="badge badge-light" style="color:rgb(45, 180, 115);">عنوانك المقيم بيه
+                                        حاليا</span>
+                                </label>
+                                <input type="text" required class="form-control" name="home_address" />
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-4">
-                            <div class="form-group">
-                                <label class="bmd-label-floating">عنوان المنزل</label>
-                                <input type="text" required class="form-control" name="home_address" />
-                            </div>
-                        </div>
-                        <div class="col-4">
+
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <select class="form-control" name="city_id">
                                     <option value="">المحافظة</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <select class="form-control" name="spec_title">
                                     <option value="استشاري">طبيب استشاري</option>
@@ -168,13 +186,43 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <select class="form-control" name="job_id">
-                                    <option disabled selected value="">الوظيفة المتقدم عليها</option>
-                                    @foreach ($jobs as $job)
-                                    <option value="{{ $job->id }}">{{ $job->job_title }}</option>
+                                    <option value="">الوظيفة المتقدم عليها</option>
+                                    @foreach ($jobs->where('status', 1)->all() as $job)
+                                    <option value="{{ $job->id }}">{{ $job->job_title  }}</option>
                                     @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="bmd-label">تاريخ الميلاد
+                                <span class="badge badge-light" style="color:rgb(45, 180, 115);">ادخل تاريخ
+                                    ميلادك</span>
+                            </label>
+                            <div class="form-group">
+                                <input type="date" class="form-control" name="birth_day" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="bmd-label ">مكان الميلاد
+                                <span class="badge badge-light" style="color:rgb(45, 180, 115);">ادخل مكان الميلاد مسقط
+                                    رأسك</span>
+                            </label>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="birth_address" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="bmd-label ">النوع</label>
+                            <div class="form-group">
+                                <select class="form-control" name="gendar">
+                                    <option value="" selected>النوع</option>
+                                    <option value="ذكر">ذكر</option>
+                                    <option value="أنثى">أنثى</option>
                                 </select>
                             </div>
                         </div>
@@ -184,14 +232,14 @@
                         <div class="col-md-12">
                             <div class="card card-plain">
                                 <div class="col-12">
-                                    <h4 class="card-title text-center my-4"
+                                    <h4 class="card-title text-center my-4 txt-title"
                                         style="background: rgb(45, 180, 115); color: white">المؤهلات
                                         العلمية</h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table table-hover">
-                                            <thead id="qualHead" class="">
+                                        <table class="table table-hover repeater">
+                                            <thead class="">
                                                 <th>
                                                     المؤهل او الشهاده
                                                 </th>
@@ -199,27 +247,41 @@
                                                     التخصص
                                                 </th>
                                                 <th>
-                                                    المدرسة او الكلية
-                                                </th>
-                                                <th>
-                                                    مقر الدراسة
-                                                </th>
-                                                <th>
-                                                    عدد السنوات
-                                                </th>
-                                                <th>
                                                     سنة التخرج
                                                 </th>
                                                 <th>
-                                                    التقدير
+                                                    مرفقات
                                                 </th>
                                                 <th>
-                                                    <a href="javascript:void(0)"
-                                                        class="btn btn-sm btn-success addRowQ">+</a>
+                                                    <button type="button" value="+" data-repeater-create
+                                                        class="add btn btn-success"><i class="far fa-plus"></i>
+                                                        اضافة</button>
                                                 </th>
                                             </thead>
-                                            <tbody id="qualBody">
-
+                                            <tbody data-repeater-list="qualifications">
+                                                <tr data-repeater-item>
+                                                    <td>
+                                                        <input class="form-control" required type="text"
+                                                            name="qualification_name">
+                                                    </td>
+                                                    <td>
+                                                        <input class="form-control" required type="text"
+                                                            name="qualification_spec">
+                                                    </td>
+                                                    <td>
+                                                        <input class="form-control" required type="date"
+                                                            name="qualification_gradution_year">
+                                                    </td>
+                                                    <td>
+                                                        <input required type="file" accept="application/pdf"
+                                                            name="qual_files">
+                                                    </td>
+                                                    <th>
+                                                        <button data-repeater-delete type="button"
+                                                            class="btn btn-danger"><i class="fa fa-trash"></i>
+                                                            ازالة</button>
+                                                    </th>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -232,13 +294,13 @@
                         <div class="col-md-12">
                             <div class="card card-plain">
                                 <div class="col-12">
-                                    <h4 class="card-title text-center my-4"
+                                    <h4 class="card-title text-center my-4 txt-title"
                                         style="background: rgb(45, 180, 115); color: white;">الخبرات العملية
                                     </h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table table-hover">
+                                        <table class="table table-hover repeater">
                                             <thead id="e_head" class="">
                                                 <th>
                                                     الوظائف التي شغلتها
@@ -256,12 +318,46 @@
                                                     سبب إنهاء الخدمة
                                                 </th>
                                                 <th>
-                                                    <a href="javascript:void(0)"
-                                                        class="btn btn-sm btn-success addRow">+</a>
+                                                    مرفقات
+                                                </th>
+                                                <th>
+                                                    <button type="button" data-repeater-create
+                                                        class="add btn btn-success"><i class="far fa-plus"></i>
+                                                        اضافة</button>
                                                 </th>
                                             </thead>
-                                            <tbody id="e_body">
-
+                                            <tbody data-repeater-list="e_data">
+                                                <tr data-repeater-item>
+                                                    <td>
+                                                        <input class="form-control" required type="text"
+                                                            name="e_data_job_title">
+                                                    </td>
+                                                    <td>
+                                                        <input class="form-control" required type="text"
+                                                            name="e_data_company_name">
+                                                    </td>
+                                                    <td>
+                                                        <input class="form-control" required type="date"
+                                                            name="e_data_job_start">
+                                                    </td>
+                                                    <td>
+                                                        <input class="form-control" required type="date"
+                                                            name="e_data_job_end">
+                                                    </td>
+                                                    <td>
+                                                        <input class="form-control" required type="text"
+                                                            name="e_data_contract_termination">
+                                                    </td>
+                                                    <td>
+                                                        <input required type="file" accept="application/pdf"
+                                                            name="e_data_files">
+                                                    </td>
+                                                    <th>
+                                                        <button data-repeater-delete type="button"
+                                                            class="btn btn-danger"><i class="fa fa-trash"></i>
+                                                            ازالة</button>
+                                                    </th>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -274,13 +370,13 @@
                         <div class="col-md-12">
                             <div class="card card-plain">
                                 <div class="col-12">
-                                    <h4 class="card-title text-center my-4"
+                                    <h4 class="card-title text-center my-4 txt-title"
                                         style="background: rgb(45, 180, 115); color: white">الخبرات في
                                         المملكة العرابية السعودية</h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table table-hover">
+                                        <table class="table table-hover repeater">
                                             <thead id="saudia" class="">
                                                 <th>
                                                     اسم الجهة
@@ -301,12 +397,50 @@
                                                     نهاية الخدمة
                                                 </th>
                                                 <th>
-                                                    <a href="javascript:void(0)"
-                                                        class="btn btn-sm btn-success addRow">+</a>
+                                                    مرفقات
+                                                </th>
+                                                <th>
+                                                    <button type="button" data-repeater-create
+                                                        class="add btn btn-success"><i class="fa fa-add"></i>
+                                                        اضافة</button>
                                                 </th>
                                             </thead>
-                                            <tbody id="saudiaBody">
-
+                                            <tbody data-repeater-list="saudia_data">
+                                                <tr data-repeater-item>
+                                                    <td>
+                                                        <input class="form-control" required type="text"
+                                                            name="saudia_company_name">
+                                                    </td>
+                                                    <td>
+                                                        <input class="form-control" required type="text"
+                                                            name="saudia_work_address">
+                                                    </td>
+                                                    <td>
+                                                        <input class="form-control" required type="text"
+                                                            name="saudia_job_title">
+                                                    </td>
+                                                    <td>
+                                                        <input class="form-control" required type="text"
+                                                            name="saudia_contract_termination">
+                                                    </td>
+                                                    <td>
+                                                        <input class="form-control" required type="date"
+                                                            name="saudia_job_start">
+                                                    </td>
+                                                    <td>
+                                                        <input class="form-control" required type="date"
+                                                            name="saudia_job_end">
+                                                    </td>
+                                                    <td>
+                                                        <input required type="file" accept="application/pdf"
+                                                            name="saudia_data_files">
+                                                    </td>
+                                                    <th>
+                                                        <button data-repeater-delete type="button"
+                                                            class="btn btn-danger"><i class="fa fa-trash"></i>
+                                                            ازالة</button>
+                                                    </th>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -319,7 +453,7 @@
                         <div class="col-md-12">
                             <div class="card card-plain">
                                 <div class="col-12">
-                                    <h4 class="card-title text-center my-4"
+                                    <h4 class="card-title text-center my-4 txt-title"
                                         style="background: rgb(45, 180, 115); color: white">الخدمة العسكرية
                                     </h4>
                                 </div>
@@ -339,6 +473,7 @@
                                                 <th>
                                                     حالة التجنيد
                                                 </th>
+
                                             </thead>
                                             <tbody>
                                                 <tr>
@@ -354,7 +489,7 @@
                                                     <td>
                                                         <select class="form-control" name="military_status">
                                                             <option value="معافى">معافى</option>
-                                                            <option value="معافى نهائي">معافى نهائي</option>
+                                                            <option value="إنهاء الخدمة">إنهاء الخدمة</option>
                                                             <option value="مؤجل تجنيده">مؤجل تجنيده</option>
                                                         </select>
                                                     </td>
@@ -366,12 +501,21 @@
                             </div>
                         </div>
                     </div>
+                    <h4 class="card-title text-center my-4 txt-title"
+                        style="background: rgb(45, 180, 115); color: white;">ارفق
+                        السيرة الذاتية الخاصة بك
+                    </h4>
+                    <h5 style="color: red;" class="txt-title">لن يتم قبول طلبك دون ارفاق السيرة الذاتية</h5>
+                    <div class="row mb-4">
+                        <div class="col-6">
+                            <input type="file" required name="cv" accept="application/pdf">
+                        </div>
+                    </div>
                     <button type="submit" class="btn pull-right">
                         تقديم طلب
                     </button>
                     <div class="clearfix"></div>
                 </form>
-
             </div>
         </div>
     </div>

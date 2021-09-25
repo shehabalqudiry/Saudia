@@ -17,6 +17,9 @@
                             #
                         </th>
                         <th>
+                            المحافظة
+                        </th>
+                        <th>
                             الجنسية
                         </th>
                         <th>
@@ -24,26 +27,29 @@
                         </th>
                     </thead>
                     <tbody>
-                        @foreach($nationalities as $na)
+                        @foreach($cities as $city)
                         <tr>
                             <td>
                                 {{ $loop->iteration }}
                             </td>
                             <td>
-                                {{ $na->name }}
+                                {{ $city->name }}
+                            </td>
+                            <td>
+                                {{ $city->nationality->name }}
                             </td>
                             <td>
                                 <button type="button" class="btn btn-success" data-toggle="modal"
-                                    data-target="#edit_{{ $na->id }}">
+                                    data-target="#edit_{{ $city->id }}">
                                     تعديل
                                 </button>
                                 <button type="button" class="btn btn-danger" data-toggle="modal"
-                                    data-target="#delete_{{ $na->id }}">
+                                    data-target="#delete_{{ $city->id }}">
                                     حذف
                                 </button>
                             </td>
                         </tr>
-                        @include('admin.nationality.actions')
+                        @include('admin.cities.actions')
                         @endforeach
                     </tbody>
                 </table>
@@ -60,14 +66,19 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="{{ route('nationalities.store') }}" method="post">
+            <form action="{{ route('cities.store') }}" method="post">
                 <div class="modal-body">
                     @csrf
                     <div class="form-group">
-                        <input class="form-control col" required type="text" name="name" placeholder="الجنسية">
+                        <input class="form-control col" required type="text" name="name" placeholder="المحافظة">
                     </div>
-                    <div class="form-group mb-4">
-                        <input class="form-control col" required type="text" name="key" placeholder="مفتاح الدولة">
+                    <div class="form-group">
+                        <select class="form-control col" name="nationality_id">
+                            @foreach ($nationalities as $nationality)
+                            <option value="{{ $nationality->id}}">
+                                {{$nationality->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
 
                 </div>

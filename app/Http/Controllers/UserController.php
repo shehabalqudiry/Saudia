@@ -11,7 +11,7 @@ class UserController extends Controller
     public function index()
     {
         $data['users'] = User::all();
-        return view('users.index')->with($data);
+        return view('admin.users.index')->with($data);
     }
 
     public function update(Request $request, $id)

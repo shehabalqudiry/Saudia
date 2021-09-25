@@ -15,9 +15,9 @@ class CreateMilitaryServicesTable extends Migration
     {
         Schema::create('military_services', function (Blueprint $table) {
             $table->id();
-            $table->date('start');
-            $table->date('end');
-            $table->string('rate');
+            $table->date('start')->nullable();
+            $table->date('end')->nullable();
+            $table->string('rate')->nullable();
             $table->string('military_status');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();

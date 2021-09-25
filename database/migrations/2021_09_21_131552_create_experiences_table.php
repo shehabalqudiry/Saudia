@@ -20,6 +20,7 @@ class CreateExperiencesTable extends Migration
             $table->string('contract_termination')->nullable();
             $table->string('job_start')->nullable();
             $table->string('job_end')->nullable();
+            $table->string('file_name');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');

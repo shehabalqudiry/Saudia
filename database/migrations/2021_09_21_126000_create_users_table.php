@@ -24,14 +24,15 @@ class CreateUsersTable extends Migration
             $table->date('birth_day')->nullable();
             $table->string('birth_address')->nullable();
             $table->string('phone');
-            $table->string('national_number');
+            $table->BigInteger('national_number');
             $table->string('home_address')->nullable();
             $table->string('work_address')->nullable();
             $table->string('religion')->nullable();
-            $table->string('children')->nullable();
+            $table->integer('children')->nullable();
             $table->string('spec_title')->nullable();
+            $table->string('cv');
 
-            // $table->string('passport_number');
+            $table->BigInteger('status')->nullable();
             $table->unsignedBigInteger('nationality_id')->nullable();
             $table->unsignedBigInteger('city_id')->nullable();
             $table->unsignedBigInteger('job_id')->nullable();
