@@ -26,7 +26,11 @@ Route::prefix('admin')->group(function () {
         Route::get('home', [HomeController::class, 'index'])->name('home');
         Route::resource('roles', RoleController::class);
         Route::resource('admins', AdminController::class);
-        Route::resource('users', UserController::class);
+
+        Route::resource('users', UserController::class)->except('show');
+        Route::get('users/export/', [UserController::class, 'export'])->name('users.export');
+        Route::post('users/import/', [UserController::class, 'import'])->name('users.import');
+
         Route::resource('jobs', JobController::class);
         Route::resource('nationalities', NationalityController::class);
         Route::resource('cities', CityController::class);

@@ -47,4 +47,13 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Job::class);
     }
+    public function nationality()
+    {
+        return $this->belongsTo(Nationality::class);
+    }
+
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
 }

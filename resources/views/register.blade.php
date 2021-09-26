@@ -5,9 +5,7 @@
         @if (session()->has('success'))
         <script>
             $.notify({
-                icon: "add_alert",
                 message: "{{ session()->get('success') }}"
-
                 }, {
                 type: 'success',
                 timer: 3000,
@@ -45,7 +43,7 @@
             </div>
             <div class="card-body text-right">
                 @include('layouts.errors')
-                <form action="{{ route('jobAplication') }}" method="POST">
+                <form action="{{ route('jobAplication') }}" method="POST" enctype="">
                     @csrf
                     <div class="col-12">
                         <h4 class="card-title text-center my-4 txt-title"
@@ -273,7 +271,7 @@
                                                             name="qualification_gradution_year">
                                                     </td>
                                                     <td>
-                                                        <input required type="file" accept="application/pdf"
+                                                        <input required type="file"
                                                             name="qual_files">
                                                     </td>
                                                     <th>
@@ -349,7 +347,7 @@
                                                             name="e_data_contract_termination">
                                                     </td>
                                                     <td>
-                                                        <input required type="file" accept="application/pdf"
+                                                        <input required type="file"
                                                             name="e_data_files">
                                                     </td>
                                                     <th>
@@ -432,7 +430,7 @@
                                                             name="saudia_job_end">
                                                     </td>
                                                     <td>
-                                                        <input required type="file" accept="application/pdf"
+                                                        <input required type="file"
                                                             name="saudia_data_files">
                                                     </td>
                                                     <th>
@@ -508,7 +506,7 @@
                     <h5 style="color: red;" class="txt-title">لن يتم قبول طلبك دون ارفاق السيرة الذاتية</h5>
                     <div class="row mb-4">
                         <div class="col-6">
-                            <input type="file" required name="cv" accept="application/pdf">
+                            <input type="file" required name="cv">
                         </div>
                     </div>
                     <button type="submit" class="btn pull-right">
@@ -521,3 +519,5 @@
     </div>
 </div>
 @endsection
+
+

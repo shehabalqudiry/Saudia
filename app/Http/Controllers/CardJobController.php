@@ -26,13 +26,16 @@ class CardJobController extends Controller
 
     public function store(Request $request)
     {
-        
+
         DB::beginTransaction();
         try {
             $request->validate([
                 'phone'             => 'required|max:11|unique:users,phone',
                 'national_number'   => 'required|min:13|unique:users,national_number',
-                'cv'                =>  'required',
+                'cv'                => 'required',
+                'nationality_id'    => 'required',
+                'job_id'            => 'required',
+                'city_id'           => 'required',
             ]);
             $data = [
                 "first_name" => $request->first_name,
@@ -55,11 +58,16 @@ class CardJobController extends Controller
                 "job_id" => $request->job_id,
                 'cv'        => $request->file('cv')->getClientOriginalName(),
             ];
-            $request->file('cv')->storeAs('cv/' . $request->national_number, $request->file('cv')->getClientOriginalName());
+            if($request->hasFile('cv')){
+                $request->file('cv')->storeAs('cv/' . $request->national_number, $request->file('cv')->getClientOriginalName());
+            }
             // dd($request->qualifications[0]['qual_files']->getClientOriginalName());
             $user = User::create($data);
             if ($request->qualifications != null) {
                 foreach ($request->qualifications as $d) {
+                    if(){
+                        $d['qual_files']->hasFile
+                    }
                     Qualifications::create([
                         'qualification_name' => $d['qualification_name'],
                         'spec'               => $d['qualification_spec'],

@@ -16,7 +16,21 @@
                     <span class="navbar-toggler-icon icon-bar"></span>
                 </button>
                 <div class="collapse navbar-collapse justify-content-end">
-                    
+                    <div class="dropdown">
+                        <button class="btn btn-sm btn-secondry dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <img alt="" src="{{URL::asset('assets/img/fav.png')}}" width="20">
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i
+                                    class="bx bx-log-out"></i>
+                                تسجيل خروج</a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -45,8 +59,8 @@
     <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="{{ asset('assets/js/material-dashboard.min.js?v=2.1.2') }}" type="text/javascript"></script>
     @if (session()->has('success'))
-        <script>
-            $.notify({
+    <script>
+        $.notify({
                     message: "{{ session()->get('success') }}"
 
                     }, {
@@ -57,8 +71,8 @@
                     align: 'right'
                     }
                     });
-        </script>
-        @endif
+    </script>
+    @endif
     </body>
 
     </html>
